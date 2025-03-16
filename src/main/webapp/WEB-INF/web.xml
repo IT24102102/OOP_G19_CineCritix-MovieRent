@@ -9,6 +9,16 @@
     <servlet-class>com.movie.AddMovieServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+    <init-param>
+      <param-name>fork</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+
+
   <servlet-mapping>
     <servlet-name>AddMovieServlet</servlet-name>
     <url-pattern>/addMovie</url-pattern>
