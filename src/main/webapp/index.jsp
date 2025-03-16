@@ -6,56 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome To CineCritix</title>
     <link rel="stylesheet" href="css/styles.css"> <!-- Link to CSS file -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Collection</title>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Movie Cards Grid */
-        .movies-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            justify-content: center;
+        /* Scrollable Page */
+        body {
+            background-color: #0055fd;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
+        /* Movie Container */
+        .movies-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            overflow-y: auto; /* Enables scrolling */
+        }
+
+        /* Movie Block */
         .movie-card {
-            background-color: #222;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
+            width: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
         }
 
         .movie-card:hover {
             transform: scale(1.05);
         }
 
-        .movie-card h3 {
-            margin: 10px 0;
-            font-size: 18px;
+        /* Movie Poster */
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
         }
 
-        .movie-card p {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .add-movie-btn {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #e50914;
+        /* Movie Title Overlay */
+        .movie-title {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
             color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
+            font-size: 16px;
             font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
-        .add-movie-btn:hover {
-            background-color: #b20710;
+        /* Scrollable Effect */
+        .scroll-container {
+            height: 80vh; /* Limits height and enables scrolling */
+            overflow-y: scroll;
+            padding-bottom: 20px;
         }
     </style>
+
 </head>
 <body>
 <h2>Welcome To CineCritix</h2>
@@ -65,15 +83,62 @@
 
 <!-- <a href="addMovie.jsp">Add New Movie</a>
 <br><br> -->
+
+<h2 style="text-align: center;">Movie Collection</h2>
+
 <div class="movies-container">
-    <c:forEach var="movie" items="${movies}">
-        <div class="movie-card">
-            <h3>${movie.title}</h3>
-            <p><strong>Genre:</strong> ${movie.genre}</p>
-            <p><strong>Rating:</strong> ${movie.rating} ⭐</p>
-        </div>
-    </c:forEach>
+    <div class="movie-card" onclick="showMovieInfo(1)">
+        <img src="images/intersteller.jpg" alt="Interstellar">
+        <p class="movie-title">Interstellar</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(2)">
+        <img src="images/Inception.jpg" alt="Inception">
+        <p class="movie-title">Inception</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(3)">
+        <img src="images/Tenet.jpg" alt="Tenet">
+        <p class="movie-title">Tenet</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(4)">
+        <img src="images/FvsF.jpg" alt="Ford Vs Ferrari">
+        <p class="movie-title">Ford Vs Ferrari</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(5)">
+        <img src="images/KGMAN.jpg" alt="The King's Man">
+        <p class="movie-title">The King’s Man</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(6)">
+        <img src="images/POC.jpg" alt="Pirates of the Caribbean">
+        <p class="movie-title">Pirates of the Caribbean</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(7)">
+        <img src="images/WOW.jpg" alt="The Wolf of Wall Street">
+        <p class="movie-title">The Wolf of Wall Street</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(8)">
+        <img src="images/Dun.jpg" alt="Dunkirk">
+        <p class="movie-title">Dunkirk</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(9)">
+        <img src="images/MR.jpg" alt="The Maze Runner ">
+        <p class="movie-title">The Maze Runner</p>
+    </div>
+    <div class="movie-card" onclick="showMovieInfo(10)">
+        <img src="images/PR.jpg" alt="Pacific Rim">
+        <p class="movie-title">Pacific Rim</p>
+    </div>
 </div>
+
+<!-- Movie Info Modal -->
+<div id="movie-info-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="movie-title"></h2>
+        <p id="movie-description"></p>
+    </div>
+</div>
+
+
 
 
 

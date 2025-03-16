@@ -4,6 +4,7 @@ public class Movie {
     private String title;
     private String genre;
     private double rating;
+    private String imageUrl;
 
     // Constructor
     public Movie(String title, String genre, double rating) {
@@ -11,10 +12,19 @@ public class Movie {
         this.genre = genre;
         this.rating = rating;
     }
+    //Constructor overload, because need to add image urls
+    public Movie(String title, String imageUrl) {
+        this.title = title;
+        this.imageUrl = imageUrl;
+    }
+
 
     // Getters and setters
     public String getTitle() {
         return title;
+    }
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public void setTitle(String title) {
