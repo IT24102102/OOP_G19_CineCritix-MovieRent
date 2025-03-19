@@ -140,6 +140,43 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
+/* Login Form Styling */
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+}
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
@@ -164,5 +201,9 @@ tr:nth-child(even) {
     .movies-container {
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .login-container {
+        width: 90%;
     }
 }

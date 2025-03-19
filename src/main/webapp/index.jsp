@@ -140,7 +140,7 @@
 
 
 
-
+<a href="LogoutServlet" style="color: red; font-weight: bold;">Logout</a>
 
 </body>
 </html>

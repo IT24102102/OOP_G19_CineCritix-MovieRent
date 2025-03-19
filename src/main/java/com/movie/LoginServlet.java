@@ -19,10 +19,15 @@ public class LoginServlet extends HttpServlet {
 
         if ("admin".equals(username) && "admin123".equals(password)) {
             session.setAttribute("userRole", "admin");
-        } else {
+            session.setAttribute("username", username); // Store username
+            response.sendRedirect("admin/admin.jsp"); // Redirect to Admin Panel
+        } else if ("user".equals(username) && "user123".equals(password)) {
             session.setAttribute("userRole", "user");
+            session.setAttribute("username", username); // Store username
+            response.sendRedirect("index.jsp"); // Redirect to User Dashboard
+        } else {
+            request.setAttribute("errorMessage", "Invalid username or password.");
+            request.getRequestDispatcher("login.jsp").forward(request, response); // Stay on login page
         }
-
-        response.sendRedirect("index.jsp");
     }
 }
