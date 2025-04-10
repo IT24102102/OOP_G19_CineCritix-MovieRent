@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/RentalServlet")
 public class RentalServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String filePath = getServletContext().getRealPath("/rentals.txt");
         int rentalId = Integer.parseInt(request.getParameter("rentalId"));
         int userId = Integer.parseInt(request.getParameter("userId"));
         int movieId = Integer.parseInt(request.getParameter("movieId"));
