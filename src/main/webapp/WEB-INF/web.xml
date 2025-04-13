@@ -1,26 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
             http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+  <!-- Servlet configuration for AdminDashboardServlet -->
   <servlet>
-    <servlet-name>AddMovieServlet</servlet-name>
-    <servlet-class>com.movie.AddMovieServlet</servlet-class>
+    <servlet-name>MovieServlet</servlet-name>
+    <servlet-class>servlets.MovieServlet</servlet-class>
   </servlet>
-
-  <servlet>
-    <servlet-name>jsp</servlet-name>
-    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
-    <init-param>
-      <param-name>fork</param-name>
-      <param-value>false</param-value>
-    </init-param>
-  </servlet>
-
 
   <servlet-mapping>
-    <servlet-name>AddMovieServlet</servlet-name>
-    <url-pattern>/addMovie</url-pattern>
+    <servlet-name>MovieServlet</servlet-name>
+    <url-pattern>/MovieServlet</url-pattern>
   </servlet-mapping>
+
+  <!-- Welcome file configuration -->
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
 </web-app>
