@@ -15,6 +15,7 @@
             <a href="returnMovie.jsp" class="btn btn-success btn-lg">🔁 Return a Movie</a>
             <a href="rentedMovies.jsp" class="btn btn-info btn-lg">📋 View Rented Movies</a>
 
+
         </div>
     </div>
     </body>

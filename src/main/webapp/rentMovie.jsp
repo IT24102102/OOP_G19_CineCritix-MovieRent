@@ -8,8 +8,8 @@
 <body class="container mt-5">
 <h2>🎬 Rent a Movie</h2>
 <form action="RentalServlet" method="post">
-
     <input type="hidden" name="action" value="rent">
+
 
     <div class="mb-3">
         <label class="form-label">Rental ID</label>
