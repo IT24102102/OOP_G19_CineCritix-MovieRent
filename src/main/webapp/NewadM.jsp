@@ -1,106 +1,89 @@
-<%@ page import="java.util.List" %>
-<%@ page import="models.Movie" %>
-<%@ page import="utils.MovieFileUtil" %>
-<jsp:include page="header.jsp" /> <!-- Include your header if you have one -->
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Newly Added Movies</title>
-  <link rel="stylesheet" href="css/styles.css"> <!-- Link your external CSS -->
+<div class="movies-section">
+  <h2>Newly Added Movies</h2>
 
-  <style>
-    /* Scrollable Page */
-    body {
-      background-color: #0055fd;
-      color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+  <div class="movies-container">
+    <%
+      // Set your correct path to the uploaded images folder
+      String imagePath = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
+      File folder = new File(imagePath);
+      File[] listOfFiles = folder.listFiles();
 
-    /* Movie Container */
-    .movies-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    /* Movie Block */
-    .movie-card {
-      width: 200px;
-      border-radius: 15px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease-in-out;
-      cursor: pointer;
-    }
-
-    .movie-card:hover {
-      transform: scale(1.05);
-    }
-
-    /* Movie Poster */
-    .movie-card img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      border-radius: 15px;
-    }
-
-    /* Movie Title Overlay */
-    .movie-title {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-  </style>
-
-</head>
-<body>
-
-<h2 style="text-align: center; margin-top: 20px;">Newly Added Movies</h2>
-
-<div class="movies-container">
-  <%
-    // Load the list of movies from the file
-    List<Movie> movies = MovieFileUtil.loadMovies();
-
-    // Check if movies exist, otherwise show a message
-    if (movies.isEmpty()) {
-  %>
-  <p style="text-align: center;">No movies added yet!</p>
-  <%
-  } else {
-    for (Movie movie : movies) {
-  %>
-  <div class="movie-card" onclick="showMovieInfo('<%= movie.getId() %>')">
-    <img src="<%= request.getContextPath() + "/Adimages/" + movie.getImageFileName() %>" alt="<%= movie.getTitle() %>">
-    <p class="movie-title"><%= movie.getTitle() %></p>
-  </div>
-  <%
+      if (listOfFiles != null) {
+        for (File file : listOfFiles) {
+          if (file.isFile()) {
+            String fileName = file.getName();
+    %>
+    <div class="movie-card">
+      <!-- Use your servlet to display the image -->
+      <img src="displayImage?filename=<%= fileName %>" alt="Movie Image" style="width: 200px; height: 300px; object-fit: cover;">
+      <div class="movie-title"><%= fileName.substring(0, fileName.lastIndexOf('.')) %></div>
+    </div>
+    <%
+        }
       }
-    }
-  %>
+    } else {
+    %>
+    <p>No movies found.</p>
+    <%
+      }
+    %>
+  </div>
 </div>
 
-<script>
-  function showMovieInfo(movieId) {
-    window.location.href = "movieInfo.jsp?movieId=" + movieId;
+<style>
+  body {
+    background-image: url('images/BG.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
   }
-</script>
+  h2, h3 {
+    margin-top: 20px;
+    color: #fff;
+    text-align: center;
+  }
 
-</body>
-</html>
+  .movies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px;
+  }
+
+  .movie-card {
+    background-color: #1b263b;
+    border-radius: 15px;
+    width: 220px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .movie-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  }
+
+  .movie-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+  }
+
+  .movie-title {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+  }
+</style>

@@ -16,7 +16,7 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class ImageServlet extends HttpServlet {
 
-    private static final String SAVE_DIR = "C:/Users/Tharindu/Desktop/OOP_WEb/Nimages/";
+    private static final String SAVE_DIR = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

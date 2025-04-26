@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 public class MovieFileUtil {
-    private static final String FILE_PATH = "C:\\Users\\Tharindu\\Desktop\\OOP_WEb\\Movies.txt";
+    private static final String FILE_PATH = "C:\\Users\\Tharindu\\Desktop\\OOP_WEb\\Original\\CMovies.txt";
 
     // Save or update movie to file
     public static void saveMovie(Movie movie) throws IOException {

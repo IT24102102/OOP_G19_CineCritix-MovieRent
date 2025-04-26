@@ -36,7 +36,7 @@ public class MovieServlet extends HttpServlet {
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // Get file name
 
             // Save the file to a specific directory
-            String uploadPath = "C:/Users/Tharindu/Desktop/OOP_WEb/Nimages/";
+            String uploadPath = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();  // Create directory if not exist
@@ -71,7 +71,7 @@ public class MovieServlet extends HttpServlet {
 
                 // If a new image is uploaded, save it and update the movie
                 if (newImageFileName != null && !newImageFileName.isEmpty()) {
-                    String uploadPath = getServletContext().getRealPath("/") + "Nimages/";
+                    String uploadPath = getServletContext().getRealPath("/") + "Newimages/";
                     File uploadDir = new File(uploadPath);
                     if (!uploadDir.exists()) uploadDir.mkdir();
                     newImagePart.write(uploadPath + newImageFileName);
@@ -83,7 +83,7 @@ public class MovieServlet extends HttpServlet {
                 MovieFileUtil.saveMovie(movie);
 
                 // Redirect back to the movie list or confirmation page
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("NewadM.jsp");
             } else {
                 response.getWriter().println("Movie not found!");
             }
