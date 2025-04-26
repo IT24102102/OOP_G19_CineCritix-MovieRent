@@ -5,9 +5,8 @@ public class Movie {
     private String title;
     private String director;
     private int year;
-    private String imageFileName;   //use to hold the image file name
+    private String imageFileName;  // This will hold the image file name
 
-    //created contructor
     public Movie(int id, String title, String director, int year, String imageFileName) {
         this.id = id;
         this.title = title;
@@ -16,7 +15,7 @@ public class Movie {
         this.imageFileName = imageFileName;
     }
 
-    //Getters and setter method implementing
+    // Getter and Setter methods for imageFileName
     public String getImageFileName() {
         return imageFileName;
     }
@@ -41,6 +40,21 @@ public class Movie {
     public Object getYear() {
         return year;
     }
+
+
+    public Object getId() {
+        return id;
+    }
+
+    public void setTitle(Object title) {
+        this.title = (String) title;
+    }
+
+    public void setDirector(Object director) {
+        this.director = (String) director;
+    }
+
+    public void setYear(Object year) {
+        this.year = (int) year;
+    }
 }
-
-

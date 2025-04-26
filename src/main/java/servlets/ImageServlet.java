@@ -1,49 +1,57 @@
 package servlets;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
-@WebServlet("/images/*") // Catch all requests starting with /images/
+@WebServlet("/uploadImage")
+@MultipartConfig
 public class ImageServlet extends HttpServlet {
 
-    // Your real folder where images are stored
-    private static final String IMAGES_DIR = "C:/Users/Tharindu/Desktop/OOP_WEb/images/";
+    private static final String SAVE_DIR = "C:/Users/Tharindu/Desktop/OOP_WEb/Nimages/";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestedImage = request.getPathInfo(); // Example: /movieposter.png
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        if (requestedImage == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404 if no file specified
-            return;
-        }
+        // Get the file part from the request
+        Part filePart = request.getPart("image"); // "image" is the name attribute in your form input
 
-        File imageFile = new File(IMAGES_DIR, requestedImage);
+        if (filePart != null && filePart.getSize() > 0) {
+            String fileName = getFileName(filePart);
 
-        if (!imageFile.exists()) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404 if file not found
-            return;
-        }
-
-        // Set content type based on file
-        String mime = getServletContext().getMimeType(imageFile.getName());
-        if (mime == null) {
-            mime = "application/octet-stream"; // Default binary
-        }
-        response.setContentType(mime);
-
-        // Copy the file to response output
-        try (FileInputStream in = new FileInputStream(imageFile);
-             OutputStream out = response.getOutputStream()) {
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
+            // Create folder if it doesn't exist
+            File saveDir = new File(SAVE_DIR);
+            if (!saveDir.exists()) {
+                saveDir.mkdirs();
             }
+
+            // Save the file
+            File file = new File(SAVE_DIR + fileName);
+            Files.copy(filePart.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            response.getWriter().println("Image uploaded successfully!");
+        } else {
+            response.getWriter().println("No image file selected.");
         }
     }
+
+    private String getFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        for (String cd : contentDisposition.split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                return cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
 }
+

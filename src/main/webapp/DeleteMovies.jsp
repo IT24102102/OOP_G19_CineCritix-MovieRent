@@ -52,3 +52,14 @@
         border-radius: 4px;
     }
 </style>
+
+<div class="card movies">
+    <h2>Manage Movies</h2>
+    <!-- Button triggers JavaScript to redirect -->
+    <button id="managemoviesBtn">Manage Movies</button>
+</div>
+<script>
+    document.getElementById('managemoviesBtn').addEventListener('click', function() {
+        window.location.href = 'managemovies.jsp'; // Redirects to manageMovies.jsp
+    });
+</script>
