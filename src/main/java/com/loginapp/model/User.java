@@ -24,7 +24,7 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
-    // Constructor with id and fields (for parsing from file)
+    // Parameterized constructor for parsing from file
     public User(String id, String username, String email, String password, String fullName) {
         this.id = id;
         this.username = username;
@@ -33,7 +33,7 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
-    // Getters and setters
+    // Getters and setters to access private variables
     public String getId() {
         return id;
     }
@@ -75,6 +75,7 @@ public class User implements Serializable {
     }
 
     // Convert user to string format for storage
+
     public String toFileString() {
         return String.join("|", id, username, email, password, fullName);
     }

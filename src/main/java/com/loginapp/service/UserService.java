@@ -15,26 +15,26 @@ public class UserService {
         this.context = context;
     }
 
-    // Create a new user
+    // Creating a new user
     public boolean registerUser(User user) {
         List<User> users = FileHandler.readUsers(context);
 
-        // Check if username or email already exists
+        // Checking existence of the username or email
         if (users.stream().anyMatch(u -> u.getUsername().equals(user.getUsername()) ||
                 u.getEmail().equals(user.getEmail()))) {
             return false;
         }
 
-        // Hash the password
+        // Hashing the password
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
-        // Add the new user
+        // Adding the new user
         users.add(user);
         FileHandler.writeUsers(users, context);
         return true;
     }
 
-    // Find user by username
+    // Finding the user by username
     public Optional<User> findByUsername(String username) {
         List<User> users = FileHandler.readUsers(context);
         return users.stream()
@@ -42,7 +42,7 @@ public class UserService {
                 .findFirst();
     }
 
-    // Find user by email
+    // Finding the user by email
     public Optional<User> findByEmail(String email) {
         List<User> users = FileHandler.readUsers(context);
         return users.stream()
@@ -50,7 +50,7 @@ public class UserService {
                 .findFirst();
     }
 
-    // Find user by ID
+    // Finding the user by ID
     public Optional<User> findById(String id) {
         List<User> users = FileHandler.readUsers(context);
         return users.stream()
@@ -58,7 +58,7 @@ public class UserService {
                 .findFirst();
     }
 
-    // Authenticate user
+    // Authenticating the user
     public Optional<User> authenticate(String username, String password) {
         Optional<User> userOpt = findByUsername(username);
 
@@ -72,7 +72,7 @@ public class UserService {
         return Optional.empty();
     }
 
-    // Update user
+    // Updating the user
     public boolean updateUser(User updatedUser) {
         List<User> users = FileHandler.readUsers(context);
 
@@ -95,7 +95,7 @@ public class UserService {
         return false;
     }
 
-    // Delete user
+    // Deleting the user
     public boolean deleteUser(String id) {
         List<User> users = FileHandler.readUsers(context);
         boolean removed = users.removeIf(u -> u.getId().equals(id));
