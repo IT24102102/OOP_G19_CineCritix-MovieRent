@@ -9,9 +9,10 @@ public class Rental {
     private int movieId;
     private String rentalDate;
 
-
+    // File path for storing rental data
     private static String FILE_PATH = "rentals.txt";
 
+    // Constructor to create a new rental record
     public Rental(int rentalId, int userId, int movieId, String rentalDate) {
         this.rentalId = rentalId;
         this.userId = userId;
