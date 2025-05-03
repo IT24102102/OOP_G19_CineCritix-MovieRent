@@ -26,34 +26,30 @@
 
         .dashboard {
             display: flex;
-            justify-content: center;  /* Centering the cards horizontally */
-            gap: 40px;  /* Space between the cards */
+            justify-content: center;
+            gap: 40px;
             padding: 60px 30px;
-            flex-wrap: wrap;  /* Wrap cards if screen size is small */
+            flex-wrap: wrap;
         }
 
         .card {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: rgba(255, 255, 255, 0.85); /* Slight transparency for readability */
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
             width: 280px;
             padding: 30px 20px;
             text-align: center;
             transition: transform 0.3s ease-in-out;
-            color: white;
         }
 
         .card:hover {
-            transform: scale(1.07);  /* Card scaling effect */
+            transform: scale(1.07);
         }
 
         .card h2 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #2c3e50;  /* Dark color for text */
+            color: #2c3e50;
         }
 
         .card button {
@@ -68,13 +64,12 @@
         }
 
         .card button:hover {
-            background-color: #34495e; /* Hover effect */
+            background-color: #34495e;
         }
 
-        /* Additional styling for better spacing on mobile */
         @media (max-width: 768px) {
             .dashboard {
-                flex-direction: column;  /* Stack cards vertically on small screens */
+                flex-direction: column;
                 align-items: center;
             }
         }
@@ -87,7 +82,7 @@
 </div>
 
 <div class="dashboard">
-    <!-- Create Movies Card -->
+    <!-- Add Movies -->
     <div class="card">
         <h2>Add New Movies</h2>
         <a href="addNewMovies.jsp">
@@ -95,7 +90,7 @@
         </a>
     </div>
 
-    <!-- Other Cards (Example) -->
+    <!-- Update Movies -->
     <div class="card">
         <h2>Update Movies</h2>
         <a href="UpdateMovies.jsp">
@@ -103,6 +98,7 @@
         </a>
     </div>
 
+    <!-- Delete Movies -->
     <div class="card">
         <h2>Delete Movies</h2>
         <a href="DeleteMovies.jsp">
@@ -110,6 +106,7 @@
         </a>
     </div>
 
+    <!-- View Movies -->
     <div class="card">
         <h2>View Movies</h2>
         <a href="NewadM.jsp">
@@ -118,5 +115,11 @@
     </div>
 </div>
 
+
+
 </body>
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
+
+<!-- Footer -->
+<jsp:include page="footer.jsp" />
 </html>

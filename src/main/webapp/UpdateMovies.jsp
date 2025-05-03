@@ -11,6 +11,44 @@
         movie = MovieFileUtil.getMovieById(movieId);
     }
 %>
+<title>Update Movie Details </title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url('images/ADNewBG.jpg') no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+    }
+    form {
+        background: #f2f2f2;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    input, button {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #5c67f2;
+        text-decoration: none;
+    }
+</style>
 
 <!-- Update Movie Block -->
 <div class="block">

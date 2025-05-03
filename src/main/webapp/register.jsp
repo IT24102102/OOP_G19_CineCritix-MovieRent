@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - CineCritix</title>
+  <title>Register - CineCritix</title> <!-- Updated Title -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
   <style>
     body {
@@ -136,8 +135,8 @@
     }
   </style>
 </head>
-<body>
 
+<body>
 <!-- Header -->
 <div class="site-header">
   <a href="${pageContext.request.contextPath}/index.jsp" class="logo">CineCritix</a>
@@ -158,17 +157,22 @@
   </div>
 </div>
 
-<!-- Login Form -->
-<!-- Login Form -->
 <main class="container">
   <div class="form-container">
-    <h2 class="form-title">Login to Your Account</h2>
+    <h2 class="form-title">Create Your Account</h2>
 
     <c:if test="${not empty errorMessage}">
-      <div class="alert alert-danger">${errorMessage}</div>
+      <div class="alert alert-danger">
+          ${errorMessage}
+      </div>
     </c:if>
 
-    <form id="loginForm" action="${pageContext.request.contextPath}/login" method="post">
+    <form id="registrationForm" action="${pageContext.request.contextPath}/register" method="post">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+      </div>
+
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" class="form-control" required>
@@ -179,19 +183,29 @@
         <input type="password" id="password" name="password" class="form-control" required>
       </div>
 
-      <button type="submit" class="btn-primary">Login</button>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
 
       <div class="form-footer">
-        Don't have an account? <a href="${pageContext.request.contextPath}/register.jsp">Register</a>
+        Already have an account? <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
       </div>
     </form>
   </div>
 </main>
+
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
 
 <!-- Footer -->
 <jsp:include page="footer.jsp" />
-
 
 </body>
 </html>

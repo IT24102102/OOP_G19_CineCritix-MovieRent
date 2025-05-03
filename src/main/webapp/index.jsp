@@ -1,24 +1,28 @@
-<!DOCTYPE html>
 <jsp:include page="header.jsp" />
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome To CineCritix</title>
-    <link rel="stylesheet" href="css/styles.css"> <!-- Link to CSS file -->
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Collection</title>
-    <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Scrollable Page */
+        /* General Page Styling */
         body {
             background-color: #0055fd;
             color: white;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+        }
+
+        /* Wider Header */
+        header {
+            width: 100%;
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         /* Movie Container */
@@ -28,12 +32,12 @@
             justify-content: center;
             gap: 20px;
             padding: 20px;
-            overflow-y: auto; /* Enables scrolling */
+            overflow-y: auto;
         }
 
         /* Movie Block */
         .movie-card {
-            width: 200px;
+            width: 220px; /* Slightly wider cards */
             border-radius: 15px;
             overflow: hidden;
             position: relative;
@@ -68,21 +72,44 @@
 
         /* Scrollable Effect */
         .scroll-container {
-            height: 80vh; /* Limits height and enables scrolling */
+            height: 80vh;
             overflow-y: scroll;
             padding-bottom: 20px;
+        }
+
+        /* Footer Styling */
+        footer {
+            width: 100%;
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        /* Links Styling */
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* Button Styling */
+        .admin-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
         }
     </style>
 
 </head>
 <body>
+
 <h2>Welcome To CineCritix</h2>
 
-
-<h3>Roll Out the Red Carpet - Your Next Movie Adventure Awaits!   </h3>
-
-<!-- <a href="addMovie.jsp">Add New Movie</a>
-<br><br> -->
+<h3>Roll Out the Red Carpet - Your Next Movie Adventure Awaits!</h3>
 
 <h2 style="text-align: center;">Movie Collection</h2>
 
@@ -120,7 +147,7 @@
         <p class="movie-title">Dunkirk</p>
     </div>
     <div class="movie-card" onclick="showMovieInfo(9)">
-        <img src="images/MR.jpg" alt="The Maze Runner ">
+        <img src="images/MR.jpg" alt="The Maze Runner">
         <p class="movie-title">The Maze Runner</p>
     </div>
     <div class="movie-card" onclick="showMovieInfo(10)">
@@ -139,13 +166,8 @@
 </div>
 
 
-<div style="text-align: center; margin-top: 20px;">
-    <a href="adminHome.jsp" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
-        Go to Admin Panel
-    </a>
-</div>
 
-
+<jsp:include page="footer.jsp" />
 
 </body>
 </html>

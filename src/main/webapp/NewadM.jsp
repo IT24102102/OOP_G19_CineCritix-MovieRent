@@ -87,3 +87,5 @@
     color: #fff;
   }
 </style>
+
+<jsp:include page="footer.jsp" />
