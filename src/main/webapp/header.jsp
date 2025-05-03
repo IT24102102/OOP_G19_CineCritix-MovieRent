@@ -108,9 +108,10 @@
 
     <!-- Navigation Links and Buttons -->
     <div class="nav-links">
+        <a href="#">Welcome To CineCritix</a>
         <a href="#">Home</a>
         <a href="#">Movies</a>
-        <a href="#">TV Shows</a>
+
         <a href="#">Watchlist</a>
     </div>
 

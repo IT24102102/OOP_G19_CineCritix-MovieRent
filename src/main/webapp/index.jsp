@@ -107,7 +107,7 @@
 </head>
 <body>
 
-<h2>Welcome To CineCritix</h2>
+
 
 <h3>Roll Out the Red Carpet - Your Next Movie Adventure Awaits!</h3>
 
