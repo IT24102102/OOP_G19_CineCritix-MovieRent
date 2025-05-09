@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Movie Rental Payment</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <style>
-
         body {
             background: url('https://images.unsplash.com/photo-1710166755608-58b3d62db3a8?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
             background-size: cover;
@@ -50,24 +49,21 @@
         <h2 class="text-center mb-4">🎬 Movie Rental Payment</h2>
 
         <!-- Payment Form -->
-        <form action="process-payment" method="post">
-            <!-- Subscription Selection -->
+        <form action="process-payment" method="post" id="paymentForm">
             <div class="mb-3">
                 <label class="form-label">Subscription Type</label>
-                <select name="subscriptionType" class="form-select" required>
-                    <option>Select Subscription (Weekly / Monthly)</option>
+                <select name="subscriptionType" id="subscriptionType" class="form-select" required>
+                    <option value="" disabled selected>Select Subscription (Weekly / Monthly)</option>
                     <option value="weekly">Weekly (LKR 150 per week)</option>
                     <option value="monthly">Monthly (LKR 500 per month)</option>
                 </select>
             </div>
 
-            <!-- Duration Input -->
             <div class="mb-3">
                 <label class="form-label">Duration (weeks/months)</label>
-                <input type="number" name="duration" class="form-control" required min="1">
+                <input type="number" name="duration" id="duration" class="form-control" required min="1">
             </div>
 
-            <!-- Payment Method Selection -->
             <div class="mb-3">
                 <label class="form-label">Payment Method</label>
                 <select name="paymentMethod" id="paymentMethod" class="form-select" required>
@@ -76,10 +72,10 @@
                 </select>
             </div>
 
-            <!-- Card / PayPal Details -->
             <div id="cardInput" class="mb-3">
                 <label class="form-label">Card Number</label>
                 <input type="text" name="cardNumber" id="cardNumber" class="form-control">
+                <small id="cardError" class="text-danger" style="display: none;">Invalid card number !!</small>
             </div>
 
             <div id="paypalInput" class="mb-3" style="display: none;">
@@ -87,18 +83,87 @@
                 <input type="text" name="paypalUsername" id="paypalUsername" class="form-control">
             </div>
 
-            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary w-100 mt-3">💳 Proceed to Payment</button>
         </form>
     </div>
 </div>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="invoiceModalLabel">🧾 Payment Invoice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Subscription Type:</strong> <span id="modalSubType"></span></p>
+                <p><strong>Duration:</strong> <span id="modalDuration"></span></p>
+                <p><strong>Payment Method:</strong> <span id="modalMethod"></span></p>
+                <p><strong>Payment Detail:</strong> <span id="modalDetail"></span></p>
+                <p><strong>Total Amount:</strong> LKR <span id="modalTotal"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // Show relevant payment input fields
-    document.getElementById("paymentMethod").addEventListener("change", function () {
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const cardInput = document.getElementById("cardInput");
+    const paypalInput = document.getElementById("paypalInput");
+
+    paymentMethodSelect.addEventListener("change", function () {
         const method = this.value;
-        document.getElementById("cardInput").style.display = method === "Card" ? "block" : "none";
-        document.getElementById("paypalInput").style.display = method === "PayPal" ? "block" : "none";
+        cardInput.style.display = method === "Card" ? "block" : "none";
+        paypalInput.style.display = method === "PayPal" ? "block" : "none";
+    });
+
+    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const subscriptionType = document.getElementById("subscriptionType").value;
+        const duration = parseInt(document.getElementById("duration").value);
+        const paymentMethod = document.getElementById("paymentMethod").value;
+        const cardNumber = document.getElementById("cardNumber").value.trim();
+        const paypalUsername = document.getElementById("paypalUsername").value.trim();
+        const cardError = document.getElementById("cardError");
+
+        // Reset error display
+        cardError.style.display = "none";
+
+        // Card validation
+        if (paymentMethod === "Card") {
+            const cardRegex = /^\d{16}$/;
+            if (!cardRegex.test(cardNumber)) {
+                cardError.style.display = "block";
+                return;
+            }
+        }
+
+        let rate = subscriptionType === "weekly" ? 150 : 500;
+        let total = rate * duration;
+
+        let maskedDetail = "";
+        if (paymentMethod === "Card") {
+            maskedDetail = `**** **** **** ${cardNumber.slice(-4)}`;
+        } else {
+            const first = paypalUsername.charAt(0);
+            const last = paypalUsername.charAt(paypalUsername.length - 1);
+            const stars = "*".repeat(Math.max(0, paypalUsername.length - 2));
+            maskedDetail = `${first}${stars}${last}`;
+        }
+
+        document.getElementById("modalSubType").innerText = subscriptionType.charAt(0).toUpperCase() + subscriptionType.slice(1);
+        document.getElementById("modalDuration").innerText = `${duration} ${subscriptionType === "weekly" ? "week(s)" : "month(s)"}`;
+        document.getElementById("modalMethod").innerText = paymentMethod;
+        document.getElementById("modalDetail").innerText = maskedDetail;
+        document.getElementById("modalTotal").innerText = total;
+
+        const invoiceModal = new bootstrap.Modal(document.getElementById("invoiceModal"));
+        invoiceModal.show();
     });
 </script>
 

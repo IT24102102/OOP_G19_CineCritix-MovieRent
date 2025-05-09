@@ -2,31 +2,22 @@ package com.example;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/payment")
 public class PaymentServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String paymentId = request.getParameter("paymentId");
-        double amount = Double.parseDouble(request.getParameter("amount"));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String subscriptionType = request.getParameter("subscriptionType");
+        int duration = Integer.parseInt(request.getParameter("duration"));
         String paymentMethod = request.getParameter("paymentMethod");
         String cardNumber = request.getParameter("cardNumber");
+        String paypalUsername = request.getParameter("paypalUsername");
 
-        // Create Payment object
-        Payment payment = new Payment(paymentId, amount, paymentMethod, cardNumber);
-        boolean success = payment.processPayment();
+        PaymentDetails payment = new PaymentDetails(subscriptionType, duration, paymentMethod, cardNumber, paypalUsername);
+        Invoice invoice = new Invoice(payment);
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
-        if (success) {
-            out.println("<h1>Payment Successful!</h1>");
-        } else {
-            out.println("<h1>Payment Failed. Please check your details.</h1>");
-        }
+        out.println(invoice.generateInvoice());
     }
 }
