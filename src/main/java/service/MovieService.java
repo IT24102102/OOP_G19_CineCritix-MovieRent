@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MovieService {
 
-    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/movies.txt";  // File to store movies
+    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Cmovies.txt";  // File to store movies
 
     // Method to get all movies
     public List<Movie> getAllMovies() {
