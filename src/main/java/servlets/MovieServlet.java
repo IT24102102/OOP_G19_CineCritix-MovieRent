@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Stack;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.Part;
         maxRequestSize = 1024 * 1024 * 10) // 10MB
 
 public class MovieServlet extends HttpServlet {
+    private static final String IMAGE_UPLOAD_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,22 +34,17 @@ public class MovieServlet extends HttpServlet {
             int year = Integer.parseInt(request.getParameter("year"));
 
             // Handle file upload
-            Part filePart = request.getPart("image");  // Get the file part
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // Get file name
+            Part filePart = request.getPart("image");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-            // Save the file to a specific directory
-            String uploadPath = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();  // Create directory if not exist
-            }
-            filePart.write(uploadPath + fileName);  // Save the file
+            // Save the file
+            saveImage(filePart, fileName);
 
             // Create movie object with image file name
             Movie movie = new Movie(movieId, title, director, year, fileName);
-            MovieFileUtil.saveMovie(movie);  // Save movie details (including image file name)
+            MovieFileUtil.saveMovie(movie);
 
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("NewadM.jsp");
 
         } else if ("updateMovie".equals(action)) {
             // Get form parameters for updating a movie
@@ -58,31 +55,26 @@ public class MovieServlet extends HttpServlet {
 
             // Handle the new image if uploaded
             Part newImagePart = request.getPart("newImage");
-            String newImageFileName = newImagePart != null ? Paths.get(newImagePart.getSubmittedFileName()).getFileName().toString() : null;
+            String newImageFileName = (newImagePart != null) ? Paths.get(newImagePart.getSubmittedFileName()).getFileName().toString() : null;
 
-            // Fetch the movie by ID to update it
+            // Fetch the movie by ID
             Movie movie = MovieFileUtil.getMovieById(id);
 
             if (movie != null) {
-                // Update the movie fields
+                // Update fields
                 movie.setTitle(newTitle);
                 movie.setDirector(newDirector);
                 movie.setYear(newYear);
 
-                // If a new image is uploaded, save it and update the movie
+                // If new image uploaded, save and update filename
                 if (newImageFileName != null && !newImageFileName.isEmpty()) {
-                    String uploadPath = getServletContext().getRealPath("/") + "Newimages/";
-                    File uploadDir = new File(uploadPath);
-                    if (!uploadDir.exists()) uploadDir.mkdir();
-                    newImagePart.write(uploadPath + newImageFileName);
-
+                    saveImage(newImagePart, newImageFileName);
                     movie.setImageFileName(newImageFileName);
                 }
 
-                // Save the updated movie (overwrite the file with updated list)
+                // Save the updated movie
                 MovieFileUtil.saveMovie(movie);
 
-                // Redirect back to the movie list or confirmation page
                 response.sendRedirect("NewadM.jsp");
             } else {
                 response.getWriter().println("Movie not found!");
@@ -94,16 +86,65 @@ public class MovieServlet extends HttpServlet {
             boolean isDeleted = MovieFileUtil.deleteMovieById(movieId);
 
             if (isDeleted) {
-                // Set success message in the request
                 request.setAttribute("message", "Movie deleted successfully!");
             } else {
-                // Set failure message in the request
                 request.setAttribute("message", "Movie not found.");
             }
 
-            // Forward the request to the delete.jsp page
             request.getRequestDispatcher("DeleteMovies.jsp").forward(request, response);
         }
+    }
 
+    private void saveImage(Part part, String fileName) throws IOException {
+        File uploadDir = new File(IMAGE_UPLOAD_PATH);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();  // Create directory if it doesn't exist
+        }
+        part.write(IMAGE_UPLOAD_PATH + fileName);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+
+        if ("watchMovie".equals(action)) {
+            // Get the movie ID from the request
+            int movieId = Integer.parseInt(request.getParameter("movieId"));
+            Movie movie = MovieFileUtil.getMovieById(movieId);
+
+            if (movie != null) {
+                // Get the current session or create a new one
+                HttpSession session = request.getSession();
+
+                // Retrieve the watched movies stack from the session
+                Stack<Movie> watchedStack = (Stack<Movie>) session.getAttribute("watchedStack");
+
+                if (watchedStack == null) {
+                    watchedStack = new Stack<>();
+                }
+
+                // Remove existing entry if already watched (no duplicates)
+                watchedStack.removeIf(m -> m.getId() == movie.getId());
+
+                // Add to the top of the stack
+                watchedStack.push(movie);
+
+                // Optional: Limit the stack to the last 5 movies
+                if (watchedStack.size() > 5) {
+                    watchedStack.remove(0); // Remove the oldest
+                }
+
+                // Save the stack back to the session
+                session.setAttribute("watchedStack", watchedStack);
+
+                // Forward the movie details to the 'viewMovie.jsp' for displaying
+                request.setAttribute("movie", movie);
+                request.getRequestDispatcher("viewMovie.jsp").forward(request, response);
+            } else {
+                response.getWriter().println("Movie not found.");
+            }
+        }
     }
 }

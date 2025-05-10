@@ -14,6 +14,10 @@ public class Movie {
         this.year = year;
         this.imageFileName = imageFileName;
     }
+    public Movie(int movieId, String movieName) {
+        this.id = movieId;
+        this.title = movieName;
+    }
 
     // Getter and Setter methods for imageFileName
     public String getImageFileName() {
@@ -33,7 +37,7 @@ public class Movie {
         return director;
     }
 
-    public Object getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -56,5 +60,9 @@ public class Movie {
 
     public void setYear(Object year) {
         this.year = (int) year;
+    }
+
+    public String getMovieName() {
+        return title;
     }
 }

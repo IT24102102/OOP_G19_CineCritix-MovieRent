@@ -109,6 +109,26 @@ public class MovieFileUtil {
 
         return false;
     }
+    //adding code for dispaly index.jsp's newly add section
+
+    // Get last 5 movies added (assumed as "newly arrived")
+    public static List<Movie> getNewlyArrivedMovies() {
+        List<Movie> allMovies = loadMovies();
+        int total = allMovies.size();
+        int fromIndex = Math.max(0, total - 5); // Get last 5 movies
+        return allMovies.subList(fromIndex, total);
+    }
+    public static List<String> getAllMovieTitles() {
+        List<String> titles = new ArrayList<>();
+        List<Movie> movies = loadMovies();
+        for (Movie movie : movies) {
+            titles.add(movie.getTitle());
+        }
+        return titles;
+    }
+
+
+
 
 
 }
