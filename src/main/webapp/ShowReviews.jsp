@@ -47,6 +47,15 @@
         .button:hover {
             background-color: #45a049;
         }
+        .sort-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        select, input[type=submit] {
+            padding: 10px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -54,9 +63,25 @@
 <div class="container">
     <h2 style="text-align: center;">All Reviews</h2>
 
+    <form method="get" class="sort-form">
+        <label for="sortBy">Sort by:</label>
+        <select name="sortBy" id="sortBy">
+            <option value="default">Default (Latest)</option>
+            <option value="rating">Rating (High to Low)</option>
+        </select>
+        <input type="submit" value="Sort">
+    </form>
+
     <%
         ReviewService reviewService = new ReviewService();
-        List<Review> reviews = reviewService.getAllReviews();
+        List<Review> reviews;
+
+        String sortBy = request.getParameter("sortBy");
+        if ("rating".equals(sortBy)) {
+            reviews = reviewService.getSortedReviewsByRating();
+        } else {
+            reviews = reviewService.getAllReviews();
+        }
 
         if (reviews.isEmpty()) {
     %>
@@ -75,7 +100,6 @@
         </thead>
         <tbody>
         <%
-            // Loop through the reviews and display each one
             for (Review review : reviews) {
         %>
         <tr>
@@ -94,6 +118,7 @@
     %>
 
     <button class="button" onclick="window.location.href='SubmitReview.jsp'">Submit a Review</button>
+    <button class="button" onclick="window.location.href='index.jsp'">Go to the Home</button>
 </div>
 
 </body>
