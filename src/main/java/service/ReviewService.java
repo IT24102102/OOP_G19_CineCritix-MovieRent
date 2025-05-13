@@ -81,4 +81,33 @@ public class ReviewService {
     public List<String> getMovies() {
         return MovieFileUtil.getAllMovieTitles();
     }
+
+    public List<Review> getSortedReviewsByRating() {
+        List<Review> reviews = getAllReviews();
+        int n = reviews.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (reviews.get(j).getRating() < reviews.get(j + 1).getRating()) {
+                    Review temp = reviews.get(j);
+                    reviews.set(j, reviews.get(j + 1));
+                    reviews.set(j + 1, temp);
+                }
+            }
+        }
+        return reviews;
+    }
+    public void deleteReview(String username, String movieName) {
+        List<Review> reviews = getAllReviews();
+        reviews.removeIf(r -> r.getUsername().equalsIgnoreCase(username) && r.getMovieName().equalsIgnoreCase(movieName));
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(REVIEW_FILE_PATH, false))) {
+            for (Review r : reviews) {
+                writer.write(r.getUsername() + "|" + r.getMovieName() + "|" + r.getRating());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
