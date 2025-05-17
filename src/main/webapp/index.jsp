@@ -207,7 +207,7 @@
         <div class="buttons">
             <button class="login-btn" onclick="window.location.href='Watched.jsp'">Watched Movies</button>
             <button class="login-btn" onclick="window.location.href='ShowReviews.jsp'">Reviews</button>
-            <button class="login-btn" onclick="window.location.href='RentMovie.jsp'">Rent Movie</button>
+            <button class="login-btn" onclick="window.location.href='rent.jsp'">Rent Movie</button>
             <button class="login-btn" onclick="window.location.href='profile.jsp'">Profile</button>
             <button class="signup-btn" onclick="window.location.href='login.jsp'">Logout</button>
         </div>
