@@ -20,7 +20,7 @@ public class Movie {
     }
 
     public Movie(String movieName) {
-        return movieName;
+        this.title = movieName;
     }
 
     // Getter and Setter methods for imageFileName
