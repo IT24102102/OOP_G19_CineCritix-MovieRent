@@ -1,6 +1,6 @@
 package servlets;
 
-import controller.RentController;
+
 import models.Movie;
 import models.Clients;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.List;
 @WebServlet("/RentServlet")
 public class RentServlet extends HttpServlet {
 
-    private RentController rentController;
+
     private RentService rentService;
 
     @Override

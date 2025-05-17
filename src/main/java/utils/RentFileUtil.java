@@ -1,6 +1,8 @@
 package utils;
 
 import models.Rent;
+import models.User;
+import models.Movie;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -9,16 +11,27 @@ import java.util.List;
 
 public class RentFileUtil {
 
+    private static final String DEFAULT_RENT_FILE = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/CRent.txt";
+
     // Save single rent entry to file (append mode)
+    public static void saveRent(Rent rent) throws IOException {
+        saveRent(rent, DEFAULT_RENT_FILE);
+    }
+
     public static void saveRent(Rent rent, String filePath) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
-            String line = rent.getRentId() + "," + rent.getUser().getUsername() + "," + rent.getMovie().getMovieName() + "," + rent.getRentDate();
+            String line = rent.getRentId() + "," + rent.getUser().getUsername() + "," +
+                    rent.getMovie().getMovieName() + "," + rent.getRentDate();
             bw.write(line);
             bw.newLine();
         }
     }
 
-    // Load all rents from file
+    // Load all rents from default file
+    public static List<Rent> loadRents() {
+        return loadRents(DEFAULT_RENT_FILE);
+    }
+
     public static List<Rent> loadRents(String filePath) {
         List<Rent> rents = new ArrayList<>();
         File file = new File(filePath);
@@ -38,7 +51,7 @@ public class RentFileUtil {
                     String movieName = parts[2];
                     LocalDate rentDate = LocalDate.parse(parts[3]);
 
-                    rents.add(new Rent(rentId, new models.User(username), new models.Movie(movieName), rentDate));
+                    rents.add(new Rent(rentId, new User(username), new Movie(movieName), rentDate));
                 }
             }
         } catch (IOException e) {
@@ -46,5 +59,21 @@ public class RentFileUtil {
         }
 
         return rents;
+    }
+
+    // Simplified version: search from default file
+    public static Rent findRent(String username, String movieName, LocalDate rentDate) {
+        return findRent(username, movieName, rentDate, DEFAULT_RENT_FILE);
+    }
+
+    public static Rent findRent(String username, String movieName, LocalDate rentDate, String filePath) {
+        for (Rent rent : loadRents(filePath)) {
+            if (rent.getUser().getUsername().equals(username)
+                    && rent.getMovie().getMovieName().equals(movieName)
+                    && rent.getRentDate().equals(rentDate)) {
+                return rent;
+            }
+        }
+        return null;
     }
 }
