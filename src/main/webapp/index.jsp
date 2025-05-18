@@ -126,6 +126,50 @@
             padding: 5px 10px;
             border-radius: 5px;
         }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .movie-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            border-radius: 15px;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .card-back {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.2rem;
+            transform: rotateY(180deg);
+        }
+
+        .watch-now-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
         /* Carousel Section */
         .carousel-section {
@@ -168,6 +212,76 @@
             0% { transform: translateX(0%); }
             100% { transform: translateX(-100%); }
         }
+        /* Movie Card Flip Effect */
+        .movie-card {
+            width: 220px;
+            height: 300px;
+            perspective: 1000px;
+            display: inline-block;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .movie-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .card-back {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transform: rotateY(180deg);
+        }
+
+        .movie-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+        }
+        /* Style for the 'Watch Now' button */
+        .watch-now-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #FF6347; /* Tomato color */
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .watch-now-button:hover {
+            background-color: #FF4500; /* Darker tomato */
+        }
+
+
 
         footer {
             width: 100%;
@@ -207,7 +321,7 @@
         <div class="buttons">
             <button class="login-btn" onclick="window.location.href='Watched.jsp'">Watched Movies</button>
             <button class="login-btn" onclick="window.location.href='ShowReviews.jsp'">Reviews</button>
-            <button class="login-btn" onclick="window.location.href='availableMovies.jsp'">Rent Movie</button>
+            <button class="login-btn" onclick="window.location.href='availableMovies.jsp'">Rent Movies</button>
             <button class="login-btn" onclick="window.location.href='profile.jsp'">Profile</button>
             <button class="signup-btn" onclick="window.location.href='login.jsp'">Logout</button>
         </div>
@@ -253,16 +367,125 @@
 
 <h2 style="text-align: center;">Free Movie Collection</h2>
 <div class="movies-container">
-    <div class="movie-card" onclick="showMovieInfo(1)"><img src="images/intersteller.jpg"><p class="movie-title">Interstellar</p></div>
-    <div class="movie-card" onclick="showMovieInfo(2)"><img src="images/Inception.jpg"><p class="movie-title">Inception</p></div>
-    <div class="movie-card" onclick="showMovieInfo(3)"><img src="images/Tenet.jpg"><p class="movie-title">Tenet</p></div>
-    <div class="movie-card" onclick="showMovieInfo(4)"><img src="images/FvsF.jpg"><p class="movie-title">Ford Vs Ferrari</p></div>
-    <div class="movie-card" onclick="showMovieInfo(5)"><img src="images/KGMAN.jpg"><p class="movie-title">The King’s Man</p></div>
-    <div class="movie-card" onclick="showMovieInfo(6)"><img src="images/POC.jpg"><p class="movie-title">Pirates of the Caribbean</p></div>
-    <div class="movie-card" onclick="showMovieInfo(7)"><img src="images/WOW.jpg"><p class="movie-title">The Wolf of Wall Street</p></div>
-    <div class="movie-card" onclick="showMovieInfo(8)"><img src="images/Dun.jpg"><p class="movie-title">Dunkirk</p></div>
-    <div class="movie-card" onclick="showMovieInfo(9)"><img src="images/MR.jpg"><p class="movie-title">The Maze Runner</p></div>
-    <div class="movie-card" onclick="showMovieInfo(10)"><img src="images/PR.jpg"><p class="movie-title">Pacific Rim</p></div>
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/intersteller.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Interstellar</p>
+                <a href="watchMovie.jsp?movie=Interstellar" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/Inception.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Inception</p>
+                <a href="watchMovie.jsp?movie=Inception" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/Tenet.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Tenet</p>
+                <a href="watchMovie.jsp?movie=Tenet" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/FvsF.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Ford Vs Ferrari</p>
+                <a href="watchMovie.jsp?movie=Ford%20Vs%20Ferrari" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/KGMAN.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">The King’s Man</p>
+                <a href="watchMovie.jsp?movie=The%20King’s%20Man" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/POC.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Pirates of the Caribbean</p>
+                <a href="watchMovie.jsp?movie=Pirates%20of%20the%20Caribbean" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/WOW.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">The Wolf of Wall Street</p>
+                <a href="watchMovie.jsp?movie=The%20Wolf%20of%20Wall%20Street" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/Dun.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Dunkirk</p>
+                <a href="watchMovie.jsp?movie=Dunkirk" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/MR.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">The Maze Runner</p>
+                <a href="watchMovie.jsp?movie=The%20Maze%20Runner" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="movie-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="images/PR.jpg">
+            </div>
+            <div class="card-back">
+                <p class="movie-title">Pacific Rim</p>
+                <a href="watchMovie.jsp?movie=Pacific%20Rim" class="watch-now-button">Watch Now</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->

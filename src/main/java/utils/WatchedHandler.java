@@ -15,7 +15,8 @@ public class WatchedHandler {
             e.printStackTrace();
         }
     }
-
+    //using in build in here
+    /*
     // Loads the watched movies into a stack (latest movie on top)
     public static Stack<String> loadWatchedMovies() {
         Stack<String> stack = new Stack<>();
@@ -28,7 +29,31 @@ public class WatchedHandler {
             e.printStackTrace();
         }
         return stack;
+    }   */
+    // Custom stack ,bacuse for the DSA part we need to do like it
+
+    public static MyStack loadWatchedMovies() {
+        // First read all movies into a list to know size
+        List<String> movies = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                movies.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Create custom stack with capacity
+        MyStack stack = new MyStack(movies.size());
+
+        // Push movies onto stack to reverse display order (latest on top)
+        for (String movie : movies) {
+            stack.push(movie);
+        }
+        return stack;
     }
+
 
 
     public static void deleteWatchedMovie(String movieName) {
