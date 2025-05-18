@@ -40,4 +40,9 @@ public class RentService {
         }
         return String.format("R%03d", max + 1);
     }
+    public List<Rent> getAllRents() {
+        return RentFileUtil.loadRents(rentFilePath);
+    }
+
+
 }

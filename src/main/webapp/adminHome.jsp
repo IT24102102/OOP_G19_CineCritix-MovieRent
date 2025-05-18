@@ -126,7 +126,7 @@
 
   <div class="card subscriptions">
     <h2>Subscriptions</h2>
-    <a href="#">
+    <a href="viewRents.jsp">
       <button>View Subscriptions</button>
     </a>
   </div>
