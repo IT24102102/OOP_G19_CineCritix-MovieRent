@@ -2,6 +2,7 @@
 <%@ page import="service.RentService" %>
 <%@ page import="java.util.List" %>
 
+
 <%
     String rentFilePath = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/CRent.txt";
     RentService rentService = new RentService(rentFilePath);
@@ -22,6 +23,18 @@
             margin: 0;
             padding: 30px;
             color: white;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+            z-index: 1000; /* ensures footer is above other content */
         }
 
         h2 {
