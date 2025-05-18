@@ -71,6 +71,7 @@ public class PaymentFileUtil {
     }
 
     public static List<Payment> readAllPayments() {
-        return readAllPayments();
+        return loadPayments();
     }
 }
+

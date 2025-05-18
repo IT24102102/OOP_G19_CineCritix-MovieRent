@@ -87,6 +87,20 @@
     .card.movies {
       background-image: url('images/managem.jpg');
     }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 14px;
+      z-index: 1000; /* ensures footer is above other content */
+    }
+
+
   </style>
 </head>
 <body>
