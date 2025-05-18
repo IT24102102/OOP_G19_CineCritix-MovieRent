@@ -83,6 +83,11 @@ public class UserService {
 
         return false;
     }
+    // In UserService.java
+    public List<User> getAllUsers() {
+        return FileHandler.readUsers(); // Simply return the full list
+    }
+
 
     // Delete user
     public boolean deleteUser(String username) {

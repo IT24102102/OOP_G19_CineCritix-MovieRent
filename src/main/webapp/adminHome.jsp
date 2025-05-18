@@ -98,14 +98,14 @@
 <div class="dashboard">
   <div class="card users">
     <h2>Current Users</h2>
-    <a href="UserServlet?action=list">
+    <a href="Users.jsp">
       <button>View Users</button>
     </a>
   </div>
 
   <div class="card income">
     <h2>Monthly Income</h2>
-    <a href="#">
+    <a href="viewIncome.jsp">
       <button>View Income</button>
     </a>
   </div>

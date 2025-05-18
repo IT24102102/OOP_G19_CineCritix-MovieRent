@@ -69,4 +69,8 @@ public class PaymentFileUtil {
         }
         return payments;
     }
+
+    public static List<Payment> readAllPayments() {
+        return readAllPayments();
+    }
 }

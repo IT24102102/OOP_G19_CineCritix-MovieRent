@@ -42,4 +42,12 @@ public class Rent {
         LocalDate rentDate = LocalDate.parse(parts[3]);
         return new Rent(rentId, user, movie, rentDate);
     }
+
+    public Object getUsername() {
+        return user.getUsername();
+    }
+
+    public Object getMovieName() {
+        return movie.getMovieName();
+    }
 }
