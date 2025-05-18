@@ -1,23 +1,16 @@
 package servlets;
 
-
-import models.Movie;
-import models.Clients;
-import javax.servlet.ServletException;
-import service.MovieService;
+import models.Rent;
 import service.RentService;
-import service.UserService;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/RentServlet")
+@WebServlet("/rent")
 public class RentServlet extends HttpServlet {
-
 
     private RentService rentService;
 
@@ -38,7 +31,6 @@ public class RentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Retrieve form parameters
         String username = req.getParameter("username");
         String movieName = req.getParameter("movieName");
 
@@ -49,12 +41,15 @@ public class RentServlet extends HttpServlet {
         }
 
         try {
-            rentService.addRent(username.trim(), movieName.trim());
+            // Call updated addRent and get Rent object
+            Rent rent = rentService.addRent(username.trim(), movieName.trim());
 
-            // Redirect to payment page with rent info as URL params
-            String redirectURL = String.format("payment.jsp?username=%s&movieName=%s",
-                    java.net.URLEncoder.encode(username, "UTF-8"),
-                    java.net.URLEncoder.encode(movieName, "UTF-8"));
+            // Redirect to PaymentServlet with rent details in URL parameters
+            String redirectURL = String.format("payment?username=%s&movieName=%s&rentDate=%s",
+                    java.net.URLEncoder.encode(rent.getUser().getUsername(), "UTF-8"),
+                    java.net.URLEncoder.encode(rent.getMovie().getMovieName(), "UTF-8"),
+                    java.net.URLEncoder.encode(rent.getRentDate().toString(), "UTF-8"));
+
             resp.sendRedirect(redirectURL);
 
         } catch (IOException e) {

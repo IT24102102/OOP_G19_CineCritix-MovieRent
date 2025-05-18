@@ -26,6 +26,10 @@ public class Rent {
         // format for saving to text file: rentId|username|movieName|rentDate
         return rentId + "|" + user.getUsername() + "|" + movie.getMovieName() + "|" + rentDate;
     }
+    public Rent(String rentId) {
+        this.rentId = rentId;
+    }
+
 
     // static method to parse a line from file back to Rent object
     public static Rent fromString(String line) {

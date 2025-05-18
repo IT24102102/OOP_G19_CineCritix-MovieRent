@@ -7,7 +7,7 @@
   <div class="movies-container">
     <%
       // Folder where movie images are located (use absolute or relative path)
-      String imagePath = "C:/Users/Tharindu/Desktop/OOP_WEb/Nimages/";
+      String imagePath = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Newimages/";
       File folder = new File(imagePath);
       File[] listOfFiles = folder.listFiles();
 

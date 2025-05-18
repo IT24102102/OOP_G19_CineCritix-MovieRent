@@ -18,7 +18,7 @@ public class RentService {
     }
 
     // Add a new rent entry and save to file
-    public void addRent(String username, String movieName) throws IOException {
+    public Rent addRent(String username, String movieName) throws IOException {
         List<Rent> rents = RentFileUtil.loadRents(rentFilePath);
         String nextId = generateNextRentId(rents);
 
@@ -27,6 +27,7 @@ public class RentService {
         Rent rent = new Rent(nextId, user, movie, LocalDate.now());
 
         RentFileUtil.saveRent(rent, rentFilePath);
+        return rent;
     }
 
     // Generate next rent ID like R001, R002
