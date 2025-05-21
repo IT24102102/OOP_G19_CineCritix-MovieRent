@@ -23,7 +23,7 @@ public class Rent {
 
     @Override
     public String toString() {
-        // format for saving to text file: rentId|username|movieName|rentDate
+        // format for saving to text file: rentId|username|movieName|rentDate  (Clear to identify to us)
         return rentId + "|" + user.getUsername() + "|" + movie.getMovieName() + "|" + rentDate;
     }
     public Rent(String rentId) {
@@ -31,7 +31,7 @@ public class Rent {
     }
 
 
-    // static method to parse a line from file back to Rent object
+    // static method to parse a line from file back to Rent object (Hope to use this if we need. Dont do anything to this part)
     public static Rent fromString(String line) {
         String[] parts = line.split("\\|");
         if(parts.length != 4) return null;

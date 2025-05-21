@@ -37,7 +37,7 @@ public class Review {
         this.rating = rating;
     }
 
-    // Method to convert Review object to a file-friendly string
+    // Method to convert Review object to a file-friendly string (Hope to get this method if we need that in future. Need to check this part)
     public String toFileString() {
         return username + "," + movieName + "," + rating;
     }

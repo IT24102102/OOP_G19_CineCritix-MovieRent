@@ -28,7 +28,7 @@ public class User implements Serializable {
     public String getPassword() {
         return password;
     }
-
+    //Hash password use to secure the name ()
     public void setPassword(String hashpw) {
         this.password = hashpw;
     }

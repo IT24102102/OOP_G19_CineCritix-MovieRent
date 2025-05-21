@@ -30,7 +30,7 @@ public class RentService {
         return rent;
     }
 
-    // Generate next rent ID like R001, R002
+    // Generate next rent ID like R001, R002 (Did like this because this will show text file more organized )
     private String generateNextRentId(List<Rent> rentList) {
         int max = 0;
         for (Rent rent : rentList) {

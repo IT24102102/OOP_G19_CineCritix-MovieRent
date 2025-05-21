@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MovieService {
 
-    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Cmovies.txt";  // File to store movies
+    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/CMovies.txt";  // File to store movies
 
     // Method to get all movies
     public List<Movie> getAllMovies() {
@@ -26,7 +26,7 @@ public class MovieService {
         return movies;
     }
 
-    // Method to validate if a movie exists in the list
+    // Method to check if a movie exists in the text file
     public boolean isValidMovie(String movieName) {
         List<Movie> movieList = getAllMovies();  // Get all movies
         for (Movie movie : movieList) {
@@ -35,6 +35,6 @@ public class MovieService {
             }
         }
         return false; // Movie not found
-    }
+    }  // ended this part and moved to the servlets . This part worked. no need to check again
 
 }

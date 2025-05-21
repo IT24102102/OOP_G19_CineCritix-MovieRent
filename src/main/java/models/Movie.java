@@ -5,7 +5,7 @@ public class Movie {
     private String title;
     private String director;
     private int year;
-    private String imageFileName;  // This will hold the image file name
+    private String imageFileName;  // Use for hold the image name,, we can use it in the future dev. like watching movies.
 
     public Movie(int id, String title, String director, int year, String imageFileName) {
         this.id = id;
@@ -32,7 +32,7 @@ public class Movie {
         this.imageFileName = imageFileName;
     }
 
-    // toFileString method, used to save movie details to file (with image file name)
+    // toFileString method, used to save movie details to file with image file name
     public String toFileString() {
         return id + "," + title + "," + director + "," + year + "," + imageFileName;
     }

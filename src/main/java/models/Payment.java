@@ -25,7 +25,7 @@ public class Payment {
     }
 
     // getters and setters
-
+    // implemented the stter for future use, if needed
     public String getPaymentId() { return paymentId; }
     public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
 

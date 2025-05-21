@@ -13,9 +13,9 @@ public class PaymentService {
     }
 
     public List<Payment> getAllPayments() {
-        return PaymentFileUtil.readAllPayments();  // This reads from payments.txt
+        return PaymentFileUtil.readAllPayments();  //  reads from payments.txt
     }
 
 
-    // Additional payment-related methods can go here (e.g., find by ID)
+
 }

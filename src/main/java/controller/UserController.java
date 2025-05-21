@@ -18,7 +18,7 @@ public class UserController extends HttpServlet {
     @Override
     public void init() {
 
-        userService = new UserService(); // ✅ Pass context
+        userService = new UserService(); //  Passing context (For future, when merging the clz)
     }
 
 
@@ -46,7 +46,7 @@ public class UserController extends HttpServlet {
         String fullName = request.getParameter("fullName");
         String phoneNumber = request.getParameter("phoneNumber");
 
-        // Create Client object (default registration is for Clients)
+        // Client object Cretion
         User newUser = new Clients(username, email, password, fullName, phoneNumber);
 
         boolean isRegistered = userService.registerUser(newUser);
@@ -60,7 +60,7 @@ public class UserController extends HttpServlet {
         }
     }
 
-    // Handle user login
+    // Handle the user login
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = request.getParameter("password");
@@ -72,9 +72,9 @@ public class UserController extends HttpServlet {
             session.setAttribute("user", loggedInUser);
 
             if (loggedInUser instanceof Admin) {
-                response.sendRedirect("adminHome.jsp"); // Admin dashboard
+                response.sendRedirect("adminHome.jsp"); // Redirecting to Admin dashboard
             } else {
-                response.sendRedirect("index.jsp"); // Client landing page
+                response.sendRedirect("index.jsp"); // Home page if we are login as a user,,
             }
         } else {
             request.setAttribute("errorMessage", "Invalid username or password.");

@@ -22,25 +22,25 @@ public class UserService {
             }
         }
 
-        // Hash the password
+        // Hash the password (checked and worked this part)
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         // Add to list and write
         users.add(user);
-        FileHandler.writeUsers(users);  // No context needed
+        FileHandler.writeUsers(users);
         return true;
     }
 
 
-    // Authenticate user (Client or Admin)
-    // Authenticate user (Client or Admin)
+
+    // Authenticate user (Client or Admin)   -Logging worked for both users and Admin
     public User authenticate(String email, String password) {
-        // 1. Check for hardcoded admin login
+        // Check for hardcoded admin login
         if (email.equalsIgnoreCase("AdminCineCritix@gmail.com") && password.equals("Admin@Rohana")) {
             return new Admin("admin", "AdminCineCritix@gmail.com", "Admin@Rohana");
         }
 
-        // 2. Check in registered users list (Clients/Admins)
+        // Check in registered users list
         List<User> users = FileHandler.readUsers();
         for (User user : users) {
             if (user.getEmail().equalsIgnoreCase(email) &&
@@ -50,7 +50,7 @@ public class UserService {
         }
         return null; // Authentication failed
     }
-    // Find user by username
+    // Find user by username (Hope to use this in as in admin clz if we had time to complete all the parts.(Don't delete this part))
     public User findByUsername(String username) {
         List<User> users = FileHandler.readUsers();
         for (User user : users) {
@@ -60,7 +60,7 @@ public class UserService {
         }
         return null;
     }
-    // Update user (preserves password if not changed)
+    // Update user (preserves password if not changed -Backend worked.. need to implement the Frontend for this)
     public boolean updateUser(User updatedUser) {
         List<User> users = FileHandler.readUsers();
 
@@ -76,7 +76,7 @@ public class UserService {
                 }
 
                 users.set(i, updatedUser);
-                FileHandler.writeUsers(users); // No context needed
+                FileHandler.writeUsers(users);
                 return true;
             }
         }

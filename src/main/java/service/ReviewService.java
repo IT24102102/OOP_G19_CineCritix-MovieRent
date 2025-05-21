@@ -9,7 +9,7 @@ import utils.MovieFileUtil;
 public class ReviewService {
 
     private static final String USER_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Cusers.txt";  // Path to users.txt
-    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Cmovies.txt";  // Path to movie.txt
+    private static final String MOVIE_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/CMovies.txt";  // Path to movie.txt
     private static final String REVIEW_FILE_PATH = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/Creviews.txt"; // Path to reviews.txt
 
 
