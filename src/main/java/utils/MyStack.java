@@ -33,4 +33,14 @@ public class MyStack {
     public int size() {
         return top + 1;
     }
+    public String peek() {
+        if (isEmpty()) return null;
+        return elements[top];
+    }
+
+    public String get(int index) {
+        if (index < 0 || index > top) return null;
+        return elements[index];
+    }
+
 }

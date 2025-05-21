@@ -17,7 +17,7 @@ public class DeleteReviewServlet extends HttpServlet {
         ReviewService reviewService = new ReviewService();
         reviewService.deleteReview(username, movieName);
 
-        // After deletion, redirect to showreviews.jsp
+        // After delete, redirecting to jasp for showing the reviews.
         response.sendRedirect("ShowReviews.jsp");
     }
 }

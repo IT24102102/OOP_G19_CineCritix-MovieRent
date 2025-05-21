@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import utils.MyStack;
 import java.util.Stack;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
@@ -37,7 +38,7 @@ public class MovieServlet extends HttpServlet {
             Part filePart = request.getPart("image");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-            // Save the file
+            // Saving the File
             saveImage(filePart, fileName);
 
             // Create movie object with image file name
@@ -118,26 +119,28 @@ public class MovieServlet extends HttpServlet {
                 // Get the current session or create a new one
                 HttpSession session = request.getSession();
 
-                // Retrieve the watched movies stack from the session
-                Stack<Movie> watchedStack = (Stack<Movie>) session.getAttribute("watchedStack");
+                MyStack watchedStack = (MyStack) session.getAttribute("watchedStack");
 
                 if (watchedStack == null) {
-                    watchedStack = new Stack<>();
+                    watchedStack = new MyStack(5); // Max 5 recent movies
                 }
 
-                // Remove existing entry if already watched (no duplicates)
-                watchedStack.removeIf(m -> m.getId() == movie.getId());
-
-                // Add to the top of the stack
-                watchedStack.push(movie);
-
-                // Optional: Limit the stack to the last 5 movies
-                if (watchedStack.size() > 5) {
-                    watchedStack.remove(0); // Remove the oldest
+// Avoid duplicates manually (optional logic not built-in)
+                String currentTitle = movie.getTitle(); // or use getId() for uniqueness
+                boolean alreadyWatched = false;
+                for (int i = 0; i < watchedStack.size(); i++) {
+                    if (watchedStack.pop().equals(currentTitle)) {
+                        alreadyWatched = true;
+                        break;
+                    }
+                }
+                if (!alreadyWatched) {
+                    watchedStack.push(currentTitle);
                 }
 
-                // Save the stack back to the session
+// Save back to session
                 session.setAttribute("watchedStack", watchedStack);
+
 
                 // Forward the movie details to the 'viewMovie.jsp' for displaying
                 request.setAttribute("movie", movie);
