@@ -13,7 +13,7 @@ public class MyStack {
 
     public void push(String item) {
         if (top == capacity - 1) {
-            // Optional: resize array if needed or throw exception
+            // resize array if needed or throw exception
             throw new RuntimeException("Stack overflow");
         }
         elements[++top] = item;
@@ -33,11 +33,12 @@ public class MyStack {
     public int size() {
         return top + 1;
     }
+    // using jsp to peek,, cause that will more organized for our porject
     public String peek() {
         if (isEmpty()) return null;
         return elements[top];
     }
-
+    // For future -- like clicking the movie to view details likewise, but not implemented now.
     public String get(int index) {
         if (index < 0 || index > top) return null;
         return elements[index];

@@ -29,7 +29,7 @@ public class FileHandler {
         return file;
     }
 
-    // Read users (Clients) from external file
+    // Read users from text file
     public static List<User> readUsers() {
         List<User> users = new ArrayList<>();
         File file = getFile();
@@ -60,7 +60,7 @@ public class FileHandler {
         return users;
     }
 
-    // Write users (Clients) to external file
+    // Write users to txt
     public static void writeUsers(List<User> users) {
         File file = getFile();
 
@@ -83,7 +83,7 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-    // Method to get a user by their email
+    // Method to get a user by their email  (need to implemnt this- Not curerntly using)
     public static Clients getUserDetailsByEmail(String email) {
         List<User> users = readUsers();  // Get all users from the file
         for (User user : users) {

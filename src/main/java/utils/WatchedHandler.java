@@ -44,10 +44,10 @@ public class WatchedHandler {
             e.printStackTrace();
         }
 
-        // Create custom stack with capacity
+        // Create custom stack with capacity (For DSA part)
         MyStack stack = new MyStack(movies.size());
 
-        // Push movies onto stack to reverse display order (latest on top)
+        // Push movies onto stack to reverse display order (latest on top- from the reading text file)
         for (String movie : movies) {
             stack.push(movie);
         }
@@ -55,7 +55,7 @@ public class WatchedHandler {
     }
 
 
-
+    //Stack isnt not using,, casue we are using this part. bcz it showing the jsp so accurate
     public static void deleteWatchedMovie(String movieName) {
         List<String> movies = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {

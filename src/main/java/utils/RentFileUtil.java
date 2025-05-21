@@ -13,10 +13,7 @@ public class RentFileUtil {
 
     private static final String DEFAULT_RENT_FILE = "C:/Users/Tharindu/Desktop/OOP_WEb/Original/CRent.txt";
 
-    // Save single rent entry to file (append mode)
-    public static void saveRent(Rent rent) throws IOException {
-        saveRent(rent, DEFAULT_RENT_FILE);
-    }
+
 
     public static void saveRent(Rent rent, String filePath) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
@@ -27,11 +24,7 @@ public class RentFileUtil {
         }
     }
 
-    // Load all rents from default file
-    public static List<Rent> loadRents() {
-        return loadRents(DEFAULT_RENT_FILE);
-    }
-
+    //Loads rent details
     public static List<Rent> loadRents(String filePath) {
         List<Rent> rents = new ArrayList<>();
         File file = new File(filePath);

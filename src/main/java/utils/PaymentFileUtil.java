@@ -32,15 +32,15 @@ public class PaymentFileUtil {
         }
     }
 
-    // Load all payments
+    // Load all payments (need to use this in admin clz)
     public static List<Payment> loadPayments() {
         List<Payment> payments = new ArrayList<>();
         File file = new File(PAYMENT_FILE);
 
         if (!file.exists()) {
-            return payments; // empty list if file missing
+            return payments;
         }
-
+        //Working below part
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
