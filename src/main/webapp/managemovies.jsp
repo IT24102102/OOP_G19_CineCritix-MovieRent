@@ -86,6 +86,7 @@
                 align-items: center;
             }
         }
+
     </style>
 </head>
 <body>

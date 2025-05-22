@@ -99,6 +99,7 @@
     text-align: center;
     color: #fff;
   }
+
   .btn-primary {
     background-color: #f39c12;
     color: white;
