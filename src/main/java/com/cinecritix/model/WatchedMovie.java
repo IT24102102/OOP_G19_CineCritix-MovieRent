@@ -1,4 +1,5 @@
 package com.cinecritix.model;
+//final
 
 public class WatchedMovie {
     private int id;

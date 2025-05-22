@@ -1,4 +1,5 @@
 package com.cinecritix.servlet;
+//final
 import com.cinecritix.model.WatchedMovie;
 
 import javax.servlet.ServletException;
