@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title>Manage Movies</title>
     <style>
         body {
             background-image: url('images/AdBG.jpg');
@@ -26,20 +26,40 @@
 
         .dashboard {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
             padding: 60px 30px;
-            flex-wrap: wrap;
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.85);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.15); /* slight transparency */
             border-radius: 20px;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
             width: 280px;
             padding: 30px 20px;
             text-align: center;
             transition: transform 0.3s ease-in-out;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .card h2,
+        .card button {
+            position: relative;
+            z-index: 1;
         }
 
         .card:hover {
@@ -49,19 +69,21 @@
         .card h2 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #2c3e50;
         }
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+        .button-link {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 10px;
+            background-color: #2c3e50;
             color: white;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 14px;
-            z-index: 1000; /* ensures footer is above other content */
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button-link:hover {
+            background-color: #34495e;
         }
 
 
@@ -80,13 +102,51 @@
             background-color: #34495e;
         }
 
-        @media (max-width: 768px) {
-            .dashboard {
-                flex-direction: column;
-                align-items: center;
-            }
+        /* Custom backgrounds for each card */
+        .card.add {
+            background-image: url('images/Abg.jpg');
         }
 
+        .card.update {
+            background-image: url('images/update.jpg');
+        }
+
+        .card.delete {
+            background-image: url('images/delete.jpg');
+        }
+
+        .card.view {
+            background-image: url('images/view.jpg');
+        }
+        .button-link {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 10px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button-link:hover {
+            background-color: #fac104;
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -96,44 +156,40 @@
 </div>
 
 <div class="dashboard">
-    <!-- Add Movies -->
-    <div class="card">
+    <div class="card add">
         <h2>Add New Movies</h2>
         <a href="addNewMovies.jsp">
             <button>Add New Movies</button>
         </a>
     </div>
 
-    <!-- Update Movies -->
-    <div class="card">
+    <div class="card update">
         <h2>Update Movies</h2>
         <a href="UpdateMovies.jsp">
             <button>Update Movies</button>
         </a>
     </div>
 
-    <!-- Delete Movies -->
-    <div class="card">
+    <div class="card delete">
         <h2>Delete Movies</h2>
         <a href="DeleteMovies.jsp">
             <button>Delete Movies</button>
         </a>
     </div>
 
-    <!-- View Movies -->
-    <div class="card">
+    <div class="card view">
         <h2>View Movies</h2>
         <a href="NewadM.jsp">
             <button>View Movies</button>
         </a>
     </div>
 </div>
+<div style="text-align: center; margin: 20px;">
+    <a href="adminHome.jsp" class="button-link">Back to Admin Home</a>
+</div>
 
 
+<jsp:include page="footer.jsp" />
 
 </body>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
-
-<!-- Footer -->
-<jsp:include page="footer.jsp" />
 </html>

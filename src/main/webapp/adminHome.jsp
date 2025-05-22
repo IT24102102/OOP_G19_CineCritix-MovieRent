@@ -33,10 +33,11 @@
     }
 
     .card {
+      position: relative;  /* to contain ::before overlay */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-color: rgba(255, 255, 255, 0.85); /* Add slight transparency for text readability */
+      background-color: rgba(255, 255, 255, 0.85); /* slight transparency */
       border-radius: 20px;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
       width: 280px;
@@ -44,6 +45,7 @@
       text-align: center;
       transition: transform 0.3s ease-in-out;
       color: white;
+      overflow: hidden; /* to clip overlay */
     }
 
     .card:hover {
@@ -54,9 +56,13 @@
       font-size: 22px;
       margin-bottom: 15px;
       color: #2c3e50;
+      position: relative;
+      z-index: 2;
     }
 
     .card button {
+      position: relative;  /* ensures button stays above overlay */
+      z-index: 2;
       padding: 12px 25px;
       border: none;
       border-radius: 10px;
@@ -87,6 +93,17 @@
     .card.movies {
       background-image: url('images/managem.jpg');
     }
+
+    /* Overlay for movies card to improve contrast */
+    .card.movies::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      z-index: 1;
+    }
+
     footer {
       position: fixed;
       bottom: 0;
@@ -100,7 +117,21 @@
       z-index: 1000; /* ensures footer is above other content */
     }
 
+    .button-link {
+      display: inline-block;
+      padding: 10px 25px;
+      margin-top: 20px;
+      background-color: #2c3e50;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
 
+    .button-link:hover {
+      background-color: #34495e;
+    }
   </style>
 </head>
 <body>
@@ -133,16 +164,20 @@
 
   <div class="card movies">
     <h2>Manage Movies</h2>
-    <!-- Button triggers JavaScript to redirect -->
     <button id="managemoviesBtn">Manage Movies</button>
   </div>
-
-  <script>
-    document.getElementById('managemoviesBtn').addEventListener('click', function() {
-      window.location.href = 'managemovies.jsp'; // Redirects to manageMovies.jsp
-    });
-  </script>
 </div>
+
+<div style="text-align: center; margin: 20px;">
+  <a href="login.jsp" class="button-link">Log out</a>
+</div>
+
+<script>
+  document.getElementById('managemoviesBtn').addEventListener('click', function() {
+    window.location.href = 'managemovies.jsp'; // Adjust filename if needed
+  });
+</script>
+
 <jsp:include page="footer.jsp" />
 
 </body>
