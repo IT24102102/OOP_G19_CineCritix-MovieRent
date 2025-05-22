@@ -74,7 +74,7 @@ public class ReviewService {
         }
         return reviews;
     }
-    // Make this method public so JSP can access it
+
     public List<String> getMovieList() {
         return getMovies(); // Calls the private method
     }

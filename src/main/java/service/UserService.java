@@ -85,7 +85,7 @@ public class UserService {
     }
     // In UserService.java
     public List<User> getAllUsers() {
-        return FileHandler.readUsers(); // Simply return the full list
+        return FileHandler.readUsers(); //  return the full list
     }
 
 
