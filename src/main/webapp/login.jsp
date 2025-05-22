@@ -9,12 +9,19 @@
   <title>Login - CineCritix</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       background-color: #121212;
       color: white;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     .site-header {
@@ -59,6 +66,7 @@
       max-width: 500px;
       margin: 50px auto;
       padding: 20px;
+      flex: 1; /* Pushes footer to bottom */
     }
 
     .form-container {
@@ -133,32 +141,31 @@
       font-size: 14px;
       border-top: 1px solid #444;
       box-sizing: border-box;
+      flex-shrink: 0; /* Prevents footer from shrinking */
     }
   </style>
 </head>
 <body>
-
 <!-- Header -->
 <div class="site-header">
-  <a href="${pageContext.request.contextPath}/index.jsp" class="logo">CineCritix</a>
+  <a href="${pageContext.request.contextPath}/login.jsp" class="logo">CineCritix</a>
 
   <div class="search-bar">
-    <form action="${pageContext.request.contextPath}/search.jsp" method="get">
+    <form action="${pageContext.request.contextPath}/login.jsp" method="get">
       <input type="text" name="query" placeholder="Search movies...">
     </form>
   </div>
 
   <div class="nav-links">
-    <a href="${pageContext.request.contextPath}/index.jsp">Home</a>
-    <a href="${pageContext.request.contextPath}/movies.jsp">Movies</a>
-    <a href="${pageContext.request.contextPath}/tvshows.jsp">TV Shows</a>
-    <a href="${pageContext.request.contextPath}/watchlist.jsp">Watchlist</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Home</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Movies</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">TV Shows</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Watchlist</a>
     <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
     <a href="${pageContext.request.contextPath}/register.jsp">Sign Up</a>
   </div>
 </div>
 
-<!-- Login Form -->
 <!-- Login Form -->
 <main class="container">
   <div class="form-container">
@@ -187,11 +194,10 @@
     </form>
   </div>
 </main>
-<script src="${pageContext.request.contextPath}/js/script.js"></script>
 
 <!-- Footer -->
 <jsp:include page="footer.jsp" />
 
-
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 </html>
