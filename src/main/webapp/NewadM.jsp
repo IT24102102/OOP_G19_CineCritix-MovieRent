@@ -99,6 +99,21 @@
     text-align: center;
     color: #fff;
   }
+  .btn-primary {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    display: inline-block;
+  }
 </style>
+<!-- Go Back Button -->
+<div class="back-button-container" style="text-align: center; margin: 20px 0;">
+  <a href="${pageContext.request.contextPath}/managemovies.jsp" class="btn-primary">Go Back to Manage Movies</a>
+</div>
 
 <jsp:include page="footer.jsp" />
