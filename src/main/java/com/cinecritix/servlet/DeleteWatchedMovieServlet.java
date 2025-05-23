@@ -1,31 +1,23 @@
-package com.cinecritix.servlet;
-import com.cinecritix.model.WatchedMovie;
+package servlets;
+
+import utils.WatchedHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
 
-
-@WebServlet("/delete-watched")
-//final
-public class DeleteWatchedMovieServlet extends HttpServlet {
+@WebServlet("/deleteWatched")
+public class DeleteWatchedServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int movieId = Integer.parseInt(request.getParameter("movieId"));
-        HttpSession session = request.getSession();
-        List<WatchedMovie> watchedList = (List<WatchedMovie>) session.getAttribute("watchedList");
+        String movie = request.getParameter("movie");
 
-        if (watchedList != null) {
-            watchedList.removeIf(movie -> movie.getId() == movieId);
-            session.setAttribute("watchedList", watchedList);
+        if (movie != null && !movie.trim().isEmpty()) {
+            WatchedHandler.deleteWatchedMovie(movie);
         }
 
-        response.sendRedirect("watched-list");
+        response.sendRedirect("Watched.jsp");
     }
 }

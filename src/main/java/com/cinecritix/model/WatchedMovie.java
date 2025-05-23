@@ -1,24 +1,31 @@
-package com.cinecritix.model;
-//final
+package servlets;
 
-public class WatchedMovie {
-    private int id;
-    private String title;
-    private String author;
-    private String imageUrl;
-    private String watchedDate;
+import utils.WatchedHandler;
 
-    public WatchedMovie(int id, String title, String author, String imageUrl, String watchedDate) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.imageUrl = imageUrl;
-        this.watchedDate = watchedDate;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+
+
+@WebServlet("/watch")
+public class WatchMovieServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String movie = request.getParameter("movie");
+
+        if (movie != null && !movie.trim().isEmpty()) {
+            // Save the movie to watched.txt
+            WatchedHandler.addWatchedMovie(movie);
+            // Set the movie name in the session
+            request.getSession().setAttribute("currentMovie", movie);
+        } else {
+            // In case there's no movie parameter
+            request.getSession().setAttribute("currentMovie", "No movie selected");
+        }
+
+        // Redirect to watchMovie.jsp to show the movie trailer
+        response.sendRedirect("watchMovie.jsp");
     }
-
-    public int getId() { return id; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public String getImageUrl() { return imageUrl; }
-    public String getWatchedDate() { return watchedDate; }
 }
