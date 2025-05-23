@@ -136,7 +136,7 @@
             <div class="words">
                 <span class="word">Movies</span>
                 <span class="word">Rents</span>
-                <span class="word">USer</span>
+                <span class="word">User</span>
                 <span class="word">cards</span>
                 <span class="word">Payment</span>
             </div>
