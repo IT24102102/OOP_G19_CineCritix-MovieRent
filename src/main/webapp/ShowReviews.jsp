@@ -13,7 +13,7 @@
             padding: 20px;
         }
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
         }
@@ -26,7 +26,7 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             background-color: #fff;
             padding: 30px;
@@ -55,6 +55,17 @@
             padding: 10px;
             font-size: 16px;
             margin-left: 10px;
+        }
+        .delete-btn {
+            padding: 6px 12px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -96,6 +107,7 @@
             <th>Username</th>
             <th>Movie Name</th>
             <th>Rating</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -106,6 +118,14 @@
             <td><%= review.getUsername() %></td>
             <td><%= review.getMovieName() %></td>
             <td><%= review.getRating() %></td>
+            <td>
+                <form action="deleteReview" method="post">
+                    <input type="hidden" name="username" value="<%= review.getUsername() %>">
+                    <input type="hidden" name="movieName" value="<%= review.getMovieName() %>">
+                    <input type="submit" value="Delete" class="delete-btn">
+                </form>
+
+            </td>
         </tr>
         <%
             }
@@ -118,7 +138,7 @@
     %>
 
     <button class="button" onclick="window.location.href='SubmitReview.jsp'">Submit a Review</button>
-    <button class="button" onclick="window.location.href='index.jsp'">Go to the Home</button>
+    <button class="button" onclick="window.location.href='index.jsp'">Go to Home</button>
 </div>
 
 </body>

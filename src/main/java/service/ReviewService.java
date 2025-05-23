@@ -4,6 +4,8 @@ import models.Review;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.BubbleSortUtil;
 import utils.MovieFileUtil;
 
 public class ReviewService {
@@ -16,7 +18,7 @@ public class ReviewService {
     // Method to save the review
     public void saveReview(Review review) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(REVIEW_FILE_PATH, true))) {
-            writer.write(review.getUsername() + "," + review.getMovieName() + "," + review.getRating());
+            writer.write(review.getUsername() + "|" + review.getMovieName() + "|" + review.getRating());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,7 +65,7 @@ public class ReviewService {
         try (BufferedReader reader = new BufferedReader(new FileReader(REVIEW_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] reviewData = line.split(",");
+                String[] reviewData = line.split("\\|");
                 String username = reviewData[0].trim();
                 String movieName = reviewData[1].trim();
                 double rating = Double.parseDouble(reviewData[2].trim());
@@ -82,20 +84,13 @@ public class ReviewService {
         return MovieFileUtil.getAllMovieTitles();
     }
 
+    // Get sorted reviews by rating using BubbleSort
     public List<Review> getSortedReviewsByRating() {
         List<Review> reviews = getAllReviews();
-        int n = reviews.size();
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (reviews.get(j).getRating() < reviews.get(j + 1).getRating()) {
-                    Review temp = reviews.get(j);
-                    reviews.set(j, reviews.get(j + 1));
-                    reviews.set(j + 1, temp);
-                }
-            }
-        }
+        BubbleSortUtil.sortReviewsByRating(reviews);
         return reviews;
     }
+
     public void deleteReview(String username, String movieName) {
         List<Review> reviews = getAllReviews();
         reviews.removeIf(r -> r.getUsername().equalsIgnoreCase(username) && r.getMovieName().equalsIgnoreCase(movieName));
