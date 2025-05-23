@@ -300,77 +300,52 @@
         </div>
     </div>
 
-    <script>
-        const cardTypeSelect = document.getElementById("cardTypeSelect");
-        const visaCard = document.getElementById("visaCard");
-        const masterCard = document.getElementById("masterCard");
+            <script>
+                const cardTypeSelect = document.getElementById("cardTypeSelect");
+                const visaCard = document.getElementById("visaCard");
+                const masterCard = document.getElementById("masterCard");
 
-        const cardNumberInput = document.getElementById("cardNumberInput");
-        const expiryInput = document.getElementById("expiryDate");
-        const cardholderInput = document.getElementById("cardholderInput");
+                const cardNumberInput = document.getElementById("cardNumberInput");
+                const cardholderInput = document.getElementById("cardholderInput");
+                const expiryDateInput = document.getElementById("expiryDate");
+                const cvvInput = document.getElementById("cvvInput");
 
-        // Elements to update
-        const visaNumber = document.getElementById("visaNumber");
-        const visaExpiry = document.getElementById("visaExpiry");
-        const visaName = document.getElementById("visaName");
-        const visaCvv = document.getElementById("visaCvv");
+                // Show selected card type preview
+                cardTypeSelect.addEventListener("change", () => {
+                    visaCard.style.display = "none";
+                    masterCard.style.display = "none";
 
-        const masterNumber = document.getElementById("masterNumber");
-        const masterExpiry = document.getElementById("masterExpiry");
-        const masterName = document.getElementById("masterName");
-        const masterCvv = document.getElementById("masterCvv");
+                    if (cardTypeSelect.value === "Visa") {
+                        visaCard.style.display = "block";
+                    } else if (cardTypeSelect.value === "MasterCard") {
+                        masterCard.style.display = "block";
+                    }
+                });
 
-        // Card type change handling
-        cardTypeSelect.addEventListener("change", function () {
-            const selectedType = this.value;
-            visaCard.style.display = selectedType === "Visa" ? "block" : "none";
-            masterCard.style.display = selectedType === "MasterCard" ? "block" : "none";
-        });
+                // Live sync inputs with virtual cards
+                cardNumberInput.addEventListener("input", () => {
+                    const formatted = cardNumberInput.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+                    cardNumberInput.value = formatted;
+                    document.getElementById("visaNumber").textContent = formatted || "•••• •••• •••• ••••";
+                    document.getElementById("masterNumber").textContent = formatted || "•••• •••• •••• ••••";
+                });
 
-        // Update card number
-        cardNumberInput.addEventListener("input", function () {
-            const formatted = this.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
-            this.value = formatted;
+                cardholderInput.addEventListener("input", () => {
+                    document.getElementById("visaName").textContent = cardholderInput.value.toUpperCase() || "CARDHOLDER NAME";
+                    document.getElementById("masterName").textContent = cardholderInput.value.toUpperCase() || "CARDHOLDER NAME";
+                });
 
-            if (cardTypeSelect.value === "Visa") {
-                visaNumber.textContent = formatted || "•••• •••• •••• ••••";
-            } else if (cardTypeSelect.value === "MasterCard") {
-                masterNumber.textContent = formatted || "•••• •••• •••• ••••";
-            }
-        });
+                expiryDateInput.addEventListener("input", () => {
+                    document.getElementById("visaExpiry").textContent = expiryDateInput.value || "MM/YY";
+                    document.getElementById("masterExpiry").textContent = expiryDateInput.value || "MM/YY";
+                });
 
-        // Update expiry date
-        expiryInput.addEventListener("input", function () {
-            const val = this.value;
-            if (cardTypeSelect.value === "Visa") {
-                visaExpiry.textContent = val || "MM/YY";
-            } else if (cardTypeSelect.value === "MasterCard") {
-                masterExpiry.textContent = val || "MM/YY";
-            }
-        });
+                cvvInput.addEventListener("input", () => {
+                    document.getElementById("visaCvv").textContent = cvvInput.value || "•••";
+                    document.getElementById("masterCvv").textContent = cvvInput.value || "•••";
+                });
+            </script>
 
-        // Update cardholder name
-        cardholderInput.addEventListener("input", function () {
-            const val = this.value.trim().toUpperCase() || "CARDHOLDER NAME";
-            if (cardTypeSelect.value === "Visa") {
-                visaName.textContent = val;
-            } else if (cardTypeSelect.value === "MasterCard") {
-                masterName.textContent = val;
-            }
-        });
-
-        // Update CVV
-        const cvvInput = document.getElementById("cvvInput");
-        cvvInput.addEventListener("input", function () {
-            const val = this.value.replace(/\D/g, '').slice(0, 3);
-            this.value = val;
-            if (cardTypeSelect.value === "Visa") {
-                visaCvv.textContent = val || "•••";
-            } else if (cardTypeSelect.value === "MasterCard") {
-                masterCvv.textContent = val || "•••";
-            }
-        });
-    </script>
 
 </body>
 </html>
